@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Love Website</title>
+  <style>
+    body {
+      background-color: black;
+      margin: 0;
+      height: 100vh;
+      overflow: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    #love-text {
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      font-size: 6vw; /* Responsive font size */
+      color: white;
+      text-align: center;
+      position: relative;
+      text-shadow: 1vw 1vw 2vw rgba(0, 0, 0, 0.5); /* Responsive text shadow */
+      animation: textAnimation 5s linear infinite;
+      padding: 10px;
+      max-width: 90vw; /* Limit text width on smaller screens */
+    }
+    .heart-icon {
+      color: red;
+      font-size: 3vw; /* Responsive heart icon size */
+      position: absolute;
+      animation: float 5s linear infinite;
+      opacity: 0;
+    }
+    .heart-icon-top {
+      animation: floatTop 6s ease-in-out infinite;
+      opacity: 1;
+    }
+    .heart-icon-bottom {
+      animation: floatBottom 7s ease-in-out infinite;
+      opacity: 1;
+    }
+    @keyframes float {
+      0% {
+        transform: translateY(0) scale(1);
+        opacity: 1;
+      }
+      50% {
+        transform: translateY(-20vh) scale(1.2);
+      }
+      100% {
+        transform: translateY(-40vh) scale(1.5);
+        opacity: 0;
+      }
+    }
+    @keyframes floatTop {
+      0% {
+        transform: translateY(-50%) scale(0.5);
+        opacity: 0;
+      }
+      50% {
+        transform: translateY(0) scale(1);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-50%) scale(0.5);
+        opacity: 0;
+      }
+    }
+    @keyframes floatBottom {
+      0% {
+        transform: translateY(50%) scale(0.5);
+        opacity: 0;
+      }
+      50% {
+        transform: translateY(0) scale(1);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(50%) scale(0.5);
+        opacity: 0;
+      }
+    }
+    @keyframes textAnimation {
+      0% {
+        text-shadow: 0 0 1vw #fff, 0 0 2vw #fff, 0 0 3vw #e60073,
+          0 0 4vw #e60073, 0 0 5vw #e60073, 0 0 6vw #e60073,
+          0 0 7vw #e60073;
+      }
+      50% {
+        text-shadow: 0 0 2vw #fff, 0 0 3vw #ff4da6, 0 0 4vw #ff4da6,
+          0 0 5vw #ff4da6, 0 0 6vw #ff4da6, 0 0 7vw #ff4da6,
+          0 0 8vw #ff4da6;
+      }
+      100% {
+        text-shadow: 0 0 1vw #fff, 0 0 2vw #fff, 0 0 3vw #e60073,
+          0 0 4vw #e60073, 0 0 5vw #e60073, 0 0 6vw #e60073,
+          0 0 7vw #e60073;
+      }
+    }
+    @media (max-width: 768px) { /* Adjustments for smaller screens */
+      #love-text {
+        font-size: 8vw;
+        text-shadow: 0.5vw 0.5vw 1vw rgba(0, 0, 0, 0.5);
+      }
+      .heart-icon {
+        font-size: 4vw;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div id="love-text">ტრაკის გაქიცინების დღე<br />17.04.24</div>
+  <script>
+    // Function to create heart icons
+    function createHearts() {
+      const loveText = document.getElementById("love-text");
+      const heartCount = 20; // Number of heart icons
+
+      // Create heart icons around the text
+      for (let i = 0; i < heartCount; i++) {
+        const heart = document.createElement("div");
+        heart.innerHTML = "&hearts;";
+        heart.className = "heart-icon";
+        heart.style.top = Math.random() * 60 + "vh"; // top 60vh for mobile
+        heart.style.left = Math.random() * 100 + "vw";
+        loveText.insertAdjacentElement("beforebegin", heart);
+      }
+
+      // Create heart icons at the top of the page
+      for (let i = 0; i < 10; i++) {
+        const heart = document.createElement("div");
+        heart.innerHTML = "&#10084;"; // Different heart icon
+        heart.className = "heart-icon heart-icon-top";
+        heart.style.left = Math.random() * 100 + "vw";
+        document.body.appendChild(heart);
+      }
+
+      // Create heart icons at the bottom of the page
+      for (let i = 0; i < 15; i++) {
+        const heart = document.createElement("div");
+        heart.innerHTML = "&#9829;"; // Different heart icon
+        heart.className = "heart-icon heart-icon-bottom";
+        heart.style.left = Math.random() * 100 + "vw";
+        document.body.appendChild(heart);
+      }
+
+      // Create different heart icons at the bottom of the page
+      const bottomHeartIcons = ["&#10083;", "&#10084;", "&#9825;", "&#9829;"];
+      for (let i = 0; i < 15; i++) {
+        const heart = document.createElement("div");
+        heart.innerHTML = bottomHeartIcons[Math.floor(Math.random() * bottomHeartIcons.length)]; // Random heart icon
+        heart.className = "heart-icon heart-icon-bottom";
+        heart.style.bottom = Math.random() * 20 + "vh"; // bottom 20vh for mobile
+        heart.style.left = Math.random() * 100 + "vw";
+        document.body.appendChild(heart);
+      }
+    }
+
+    // Function to animate text
+    function animateText() {
+      const loveText = document.getElementById("love-text");
+      const text = loveText.textContent.trim();
+      let newText = "";
+      // Break text into individual characters and hide them
+      for (let i = 0; i < text.length; i++) {
+        newText += `<span class="letter" style="opacity: 0">${text[i]}</span>`;
+      }
+      loveText.innerHTML = newText;
+      const letters = document.querySelectorAll(".letter");
+      letters.forEach((letter, index) => {
+        setTimeout(() => {
+          letter.style.opacity = 1;
+        }, 300 * index); // Increased delay to 300ms
+      });
+      // Revert to original text after animation completes
+      setTimeout(() => {
+        loveText.textContent = text;
+        animateText(); // Repeat animation
+      }, 300 * text.length); // Increased delay to 300ms
+    }
+
+    createHearts(); // Call the function to create hearts
+    animateText(); // Call the function to animate text
+  </script>
+</body>
+</html>
